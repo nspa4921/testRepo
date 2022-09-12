@@ -1,0 +1,22 @@
+<aura:component implements="forceCommunity:layout" access="global" description="Mital Layout"> 
+    <!-- <aura:attribute name="header" type="Aura.Component[]" required="true"></aura:attribute> -->
+    <aura:attribute name="container" type="Aura.Component[]" />
+    <!-- <aura:attribute name="navMenu" type="Aura.Component[]" /> -->
+
+    <!-- <body>
+      <div id="CommunityTemplate">
+          <div class="header">{!v.header}</div>
+          <div class="body">{!v.body}</div>
+          <div class="navMenu">{!v.navMenu}</div>
+      </div>
+  </body> -->
+
+    <lightning:layout multipleRows="true">
+        <!-- <lightning:layoutItem size="12" mediumDeviceSize="12" class="header">{!v.header}</lightning:layoutItem> -->
+        <lightning:layoutItem size="12" mediumDeviceSize="12" class="container">{!v.container}</lightning:layoutItem>
+        <!-- <lightning:layoutItem size="12" class="navMenu">{!v.navMenu}</lightning:layoutItem> -->
+    </lightning:layout>
+  
+	
+  
+</aura:component>

@@ -1,0 +1,41 @@
+
+.THIS {
+    position: relative;
+    z-index: 1;
+}
+
+ .THIS .container {
+    top: 0;
+  }
+
+/*
+  .THIS .navMenu {
+    height: 50px;
+  } */
+
+/* .THIS {
+    background: url(https://www.al-bank.dk/assets/images/al-badge.svg) no-repeat 100% 0;
+    background-size: 300px;
+    background-attachment: fixed;
+    background-position-y: 80px;
+    background-color: transparent;
+}  */
+
+
+/* @media (min-width: 768px) {
+ 
+    body {
+        font-size: 1.125rem;
+    }
+
+    .tabs-container {
+        padding: 4rem 4rem;
+    }
+}
+@media (min-width: 992px) {
+
+    .tabs {
+        width: 800px;
+    }
+} */
+

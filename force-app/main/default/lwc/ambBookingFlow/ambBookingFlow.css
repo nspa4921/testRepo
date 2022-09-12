@@ -1,0 +1,10 @@
+@import "c/amDesignTokens";
+
+.component {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacing {
+  margin-bottom: 32px;
+}

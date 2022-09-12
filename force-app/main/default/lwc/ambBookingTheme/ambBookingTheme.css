@@ -1,0 +1,12 @@
+@import "c/amDesignTokens";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header * + * {
+  margin-left: var(--layout-margin-section-section);
+}

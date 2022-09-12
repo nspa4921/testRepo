@@ -1,0 +1,59 @@
+<template>
+  <c-am-v-stack type="section">
+    <c-am-stack-item>
+      <c-am-v-stack type="interaction">
+        <c-am-stack-item>
+          <c-am-heading variant="card-heading" text={heading}></c-am-heading>
+        </c-am-stack-item>
+        <c-am-stack-item>
+          <c-am-paragraph text={description}></c-am-paragraph>
+        </c-am-stack-item>
+      </c-am-v-stack>
+    </c-am-stack-item>
+    <template if:true={meetings}>
+      <c-am-stack-item>
+        <c-am-v-stack type="interaction">
+          <template for:each={meetings} for:item="meeting">
+            <c-am-stack-item key={meeting.meetingid}>
+              <c-amb-booking-meeting-card
+                meetingid={meeting.meetingid}
+                startdate={meeting.startdate}
+                enddate={meeting.enddate}
+                advisor={meeting.advisor}
+                location={meeting.location}
+                meetingtype={meeting.type}
+                meetingtheme={meeting.theme}
+                meetinglink={meeting.meetinglink}
+                ismovable={meeting.ismovable}
+                iscancelable={meeting.iscancelable}
+                showstartmeetingbutton={meeting.isonline}
+                advisorlabel={advisorlabel}
+                meetingtypelabel={meetingtypelabel}
+                meetingthemelabel={meetingthemelabel}
+                choosenewtimelabel={choosenewtimelabel}
+                cancellabel={cancellabel}
+                startmeetinglabel={startmeetinglabel}
+                startmeetingdescription={startmeetingdescription}
+                disablecancelmeeting={disablecancelmeeting}
+                disablemovemeeting={disablemovemeeting}
+              >
+              </c-amb-booking-meeting-card>
+            </c-am-stack-item>
+          </template>
+        </c-am-v-stack>
+      </c-am-stack-item>
+    </template>
+    <c-am-stack-item>
+      <c-am-v-stack type="interaction">
+        <c-am-stack-item>
+          <div class="bookbutton">
+            <c-am-button
+              label={bookmeetinglabel}
+              onclick={handleBookNewMeeting}
+            ></c-am-button>
+          </div>
+        </c-am-stack-item>
+      </c-am-v-stack>
+    </c-am-stack-item>
+  </c-am-v-stack>
+</template>

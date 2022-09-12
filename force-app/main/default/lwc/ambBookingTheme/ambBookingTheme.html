@@ -1,0 +1,27 @@
+<template>
+  <c-am-layout-title-content-navigation>
+    <template if:false={disableheader}>
+      <div slot="title" class="header">
+        <template if:true={cangoback}>
+          <c-am-icon-button
+            icon="arrow-left"
+            variant="tertiary"
+            onclick={handleBackClick}
+          ></c-am-icon-button>
+        </template>
+        <c-am-heading
+          slot="title"
+          text={heading}
+          variant="card-heading"
+        ></c-am-heading>
+      </div>
+    </template>
+    <c-am-layout-text-content slot="content">
+      <c-am-paragraph slot="text" text={description}></c-am-paragraph>
+      <c-am-navigation-list
+        slot="content"
+        items={themes}
+      ></c-am-navigation-list>
+    </c-am-layout-text-content>
+  </c-am-layout-title-content-navigation>
+</template>

@@ -1,0 +1,151 @@
+<template>
+  <div class="component">
+    <template if:true={showspinner}>
+      <c-amb-spinner-overlay></c-amb-spinner-overlay>
+    </template>
+    <template if:true={hasData}>
+      <template if:true={showCustomerMeetings}>
+        <c-amb-customer-meetings
+          onbook={onBookNewMeeting}
+          onreschedulemeeting={handleRescheduleMeeting}
+          oncancelmeeting={handleCancelMeeting}
+          meetings={bookedMeetings}
+          heading={labels.AMB_CustomerMeetings_Heading}
+          description={labels.AMB_CustomerMeetings_Description}
+          advisorlabel={labels.AMB_CustomerMeetings_AdvisorLabel}
+          meetingtypelabel={labels.AMB_CustomerMeetings_MeetingTypeLabel}
+          meetingthemelabel={labels.AMB_CustomerMeetings_MeetingThemeLabel}
+          choosenewtimelabel={labels.AMB_CustomerMeetings_ChooseNewTimeLabel}
+          cancellabel={labels.AMB_CustomerMeetings_CancelLabel}
+          startmeetinglabel={labels.AMB_CustomerMeetings_StartMeetingLabel}
+          startmeetingdescription={labels.AMB_CustomerMeetings_StartMeetingDescription}
+          bookmeetinglabel={labels.AMB_CustomerMeetings_BookMeetingLabel}
+          disablecancelmeeting={disablecancelmeeting}
+          disablemovemeeting={disablereschedulemeeting}
+        ></c-amb-customer-meetings>
+      </template>
+    </template>
+    <template if:true={showProgressBar}>
+      <c-am-progress-bar
+        class="spacing"
+        steps={bookingflowsteps}
+        currentstep={progress}
+      ></c-am-progress-bar>
+    </template>
+    <template if:true={stepToggles.theme}>
+      <c-amb-booking-theme
+        heading={labels.AMB_BookingTheme_Heading}
+        description={labels.AMB_BookingTheme_Description}
+        themes={themeOptions}
+        cangoback={showBookedMeetings}
+        onback={handleBackToMeetings}
+      ></c-amb-booking-theme>
+    </template>
+    <template if:true={stepToggles.subTheme}>
+      <c-amb-booking-theme
+        heading={labels.AMB_BookingSubTheme_Heading}
+        description={labels.AMB_BookingSubTheme_Description}
+        themes={subThemeOptions}
+        cangoback={True}
+        onback={handleBackToTheme}
+      ></c-amb-booking-theme>
+    </template>
+    <template if:true={stepToggles.planner}>
+      <c-amb-booking-planner-data
+        accountid={accountid}
+        onaction={nextClicked}
+        onback={handleBackToSubTheme}
+        subthemeid={subthemeid}
+        onrequestslot={requestSlotHandler}
+        ondatafetchstart={handleEnableSpinner}
+        ondatafetchend={handleDisableSpinner}
+        configoverride={configoverride}
+      ></c-amb-booking-planner-data>
+    </template>
+    <template if:true={stepToggles.book}>
+      <c-amb-booking-page
+        advisorlabel={labels.AMB_BookingPage_AdvisorLabel}
+        advisornames={advisorName}
+        address={accountLocation}
+        addresslabel={labels.AMB_BookingPage_AddressLabel}
+        customeremail={customeremail}
+        customeremaillabel={labels.AMB_BookingPage_EmailLabel}
+        selectedmeetingtypeid={selectedMeetingTypeId}
+        meetingtypes={bookTimeSlotVariants}
+        meetingtypelabel={labels.AMB_BookingPage_MeetingTypeLabel}
+        timeslot={bookTimeSlot}
+        themelabels={themelabels}
+        comment={comment}
+        onaccept={bookingAcceptHandler}
+        onback={handleBackToPlanner}
+        timelabel={labels.AMB_BookingPage_TimeLabel}
+        meetingthemelabel={labels.AMB_BookingPage_MeetingThemeLabel}
+        heading={labels.AMB_BookingPage_Heading}
+        datelabel={labels.AMB_BookingPage_DateLabel}
+        commentlabel={labels.AMB_BookingPage_CommentLabel}
+        choosedifferentmeetinglabel={labels.AMB_BookingPage_ChooseDifferentMeetingLabel}
+        bookmeetinglabel={labels.AMB_BookingPage_BookMeetingLabel}
+        onemailchanged={handleCustomerEmailChanged}
+      ></c-amb-booking-page>
+    </template>
+    <template if:true={stepToggles.confirm}>
+      <c-amb-booking-confirmation
+        date={bookedMeetingDate}
+        duration={bookedMeetingDuration}
+        themes={bookedMeetingTheme}
+        meetingtype={bookedMeetingTypeLabel}
+        advisornames={bookedMeetingAdvisorNames}
+        comment={bookedMeeting.response.meeting.description}
+        address={bookedMeetingLocation}
+        addresslabel={labels.AMB_BookingConfirmation_LocationLabel}
+        onclick={handleClick}
+        onclose={handleClose}
+        timelabel={labels.AMB_BookingConfirmation_TimeLabel}
+        meetingtypelabel={labels.AMB_BookingConfirmation_MeetingTypeLabel}
+        meetingthemelabel={labels.AMB_BookingConfirmation_MeetingThemeLabel}
+        heading={labels.AMB_BookingConfirmation_Heading}
+        datelabel={labels.AMB_BookingConfirmation_DateLabel}
+        commentlabel={labels.AMB_BookingConfirmation_CommentLabel}
+        closebookinglabel={labels.AMB_BookingConfirmation_CloseBookingLabel}
+        advisorlabel={labels.AMB_BookingConfirmation_AdvisorLabel}
+        startdatelabel={labels.AMB_BookingCalendar_StartDateLabel}
+        removeclosebutton={removeclosebutton}
+      ></c-amb-booking-confirmation>
+    </template>
+    <template if:true={stepToggles.delete}>
+      <c-amb-booking-cancel
+        heading={labels.AMB_Cancel_Heading}
+        meetingid={bookingFlowId}
+        comment={cancelComment}
+        meetingdetails={cancelMeetingDetails}
+        datelabel={labels.AMB_BookingConfirmation_DateLabel}
+        timelabel={labels.AMB_BookingConfirmation_TimeLabel}
+        addresslabel={labels.AMB_BookingConfirmation_LocationLabel}
+        meetingthemelabel={labels.AMB_BookingConfirmation_MeetingThemeLabel}
+        meetingtypelabel={labels.AMB_BookingConfirmation_MeetingTypeLabel}
+        advisorlabel={labels.AMB_BookingConfirmation_AdvisorLabel}
+        backlabel={labels.AMB_Cancel_Back_label}
+        cancellabel={labels.AMB_Cancel_Cancel_label}
+        commentlabel={labels.AMB_Cancel_Comment_label}
+        onback={handleBackToMeetings}
+        oncancelmeeting={handleCancelMeetingConfirmed}
+      ></c-amb-booking-cancel>
+    </template>
+    <template if:true={stepToggles.reschedule}
+      ><c-amb-rescheduler
+        accountid={accountid}
+        meetingid={bookingFlowId}
+        disablecustomslot={True}
+        initialdate={initialdate}
+        iscustomer={True}
+        availabledates={availabledates}
+        hasvalidconfiguration={True}
+        startdatelabel={startdatelabel}
+        onrescheduled={handleMeetingRescheduled}
+        onback={handleBackToMeetings}
+        ondatafetchstart={handleEnableSpinner}
+        ondatafetchend={handleDisableSpinner}
+      ></c-amb-rescheduler
+    ></template>
+  </div>
+</template>

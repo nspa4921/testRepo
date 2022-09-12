@@ -1,0 +1,68 @@
+<template>
+  <c-am-card>
+    <div class="card">
+      <div class="heading">
+        <c-am-heading
+          text={prettyPrintedDate}
+          variant="card-heading"
+        ></c-am-heading>
+      </div>
+      <div class="upper content">
+        <div class="textbox">
+          <c-am-v-stack type="interaction">
+            <c-am-stack-item>
+              <c-am-paragraph text={location}></c-am-paragraph>
+            </c-am-stack-item>
+            <c-am-stack-item>
+              <c-am-paragraph text={prettyPrintAdvisor}></c-am-paragraph>
+              <c-am-paragraph text={prettyPrintMeetingType}></c-am-paragraph>
+              <c-am-paragraph text={prettyPrintMeetingTheme}></c-am-paragraph>
+            </c-am-stack-item>
+          </c-am-v-stack>
+        </div>
+        <div class="buttonbox">
+          <template if:true={showButtonList}>
+            <c-am-button-list
+              buttons={buttons}
+              orientation="vertical"
+            ></c-am-button-list>
+          </template>
+          <template if:false={showButtonList}>
+            <template if:true={canMove}>
+              <div class="button">
+                <c-am-button
+                  variant="secondary"
+                  label={choosenewtimelabel}
+                  onclick={handleChooseNewTime}
+                ></c-am-button>
+              </div>
+            </template>
+            <template if:true={canCancel}>
+              <div class="button">
+                <c-am-button
+                  variant="secondary"
+                  label={cancellabel}
+                  onclick={handleCancelMeeting}
+                ></c-am-button>
+              </div>
+            </template>
+          </template>
+        </div>
+      </div>
+      <template if:true={showstartmeetingbutton}>
+        <div class="lower content">
+          <c-am-button
+            label={startmeetinglabel}
+            disabled={isMeetingNotReady}
+            onclick={handleStartMeeting}
+          ></c-am-button>
+          <template if:true={isMeetingNotReady}>
+            <div class="meetingdesc">
+              <c-am-paragraph text={startmeetingdescription}></c-am-paragraph>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </c-am-card>
+</template>

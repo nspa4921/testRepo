@@ -1,0 +1,57 @@
+@import "c/amDesignTokens";
+
+:host {
+  display: block;
+}
+
+.card {
+  padding: var(--interaction-canvas-padding-y)
+    var(--interaction-canvas-padding-y);
+}
+
+.upper.content {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: calc(var(--layout-margin-paragraph-paragraph) * -1);
+  margin-top: calc(var(--layout-margin-paragraph-paragraph) * -1);
+}
+
+.upper.content > * {
+  margin-left: var(--layout-margin-paragraph-paragraph);
+  margin-top: var(--layout-margin-paragraph-paragraph);
+}
+
+.lower.content {
+  margin-top: var(--layout-margin-paragraph-paragraph);
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  max-width: 100%;
+  margin-left: calc(var(--layout-margin-paragraph-paragraph) * -1);
+}
+
+.lower.content > * {
+  margin-left: var(--layout-margin-paragraph-paragraph);
+}
+
+.textbox {
+  display: inline;
+  min-width: max-content;
+}
+
+.buttonbox {
+  display: inline;
+  align-self: flex-end;
+}
+
+.heading {
+  display: inline-block;
+  min-width: fit-content;
+}
+
+.meetingdesc {
+  display: inline;
+}
