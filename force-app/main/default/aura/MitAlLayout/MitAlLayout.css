@@ -1,12 +1,10 @@
-
 .THIS {
-    /* position: relative;
-    z-index: 1; */
+    position: relative;
+    z-index: 1;
 }
 
  .THIS .container {
     top: 0;
-    position: "absolute"
   }
 
 /*
